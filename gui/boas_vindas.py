@@ -38,7 +38,7 @@ class BoasVindas:
         self.help_menu.add_command(label="Sobre", command=self.show_about)
 
         # Title
-        self.title = tk.Label(root, text="Sistema Integrado de Fluxo de Caixa", font=("Helvetica", 16),fg="#44444", bg="")
+        self.title = tk.Label(root, text="Sistema Integrado de Fluxo de Caixa", font=("Helvetica", 16),fg="#444444", )
         self.title.place(relx=0.01, rely=0.95, anchor="sw")
 
         self.root.configure(bg='#ffffff')
