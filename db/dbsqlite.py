@@ -15,26 +15,28 @@ class Database:
                 preco_unitario REAL
             );
         ''')
-
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS vendas (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                produto_id INTEGER,
-                quantidade INTEGER,
+                data_venda DATETIME DEFAULT CURRENT_TIMESTAMP,
                 valor_total REAL,
-                FOREIGN KEY (produto_id) REFERENCES produtos (produto_id)
+                forma_pagamento VARCHAR(50) -- (e.g., Cash, Credit, Debit)
             );
         ''')
 
-        self.cursor.execute('''
-            CREATE TABLE IF NOT EXISTS vendas (
+        self.curso.execute('''
+            CREATE TABLE IF NOT EXISTS venda_produtos (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                venda_id INTEGER,
                 produto_id INTEGER,
                 quantidade INTEGER,
+                preco_unitario REAL,
                 valor_total REAL,
-                FOREIGN KEY (produto_id) REFERENCES produtos (produto_id)
+                FOREIGN KEY (venda_id) REFERENCES vendas(id),
+                FOREIGN KEY (produto_id) REFERENCES produtos(produto_id)
             );
         ''')
+
         self.conn.commit()
 
     def insert_produto(self, produto_id, descricao, preco_unitario):

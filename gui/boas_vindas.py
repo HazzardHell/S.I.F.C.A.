@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
 from gui.produtos_screen import ProdutosScreen
+from gui.salesscreen import SalesScreen
+from gui.salesviewscreen import SalesViewScreen
 
 class BoasVindas:
     def __init__(self, root):
@@ -25,6 +27,8 @@ class BoasVindas:
         self.file_menu = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_bar.add_cascade(label="Arquivo", menu=self.file_menu)
         self.file_menu.add_command(label="Vender", command=self.open_register_sales)
+        self.file_menu.add_separator()
+        self.file_menu.add_command(label="Registro de vendas", command=self.open_sales_hist)
         self.file_menu.add_separator()
         self.file_menu.add_command(label="Sair", command=self.exit)
 
@@ -67,13 +71,19 @@ class BoasVindas:
         self.bg_label.image = self.bg_image  # Keep a reference to prevent garbage collection
 
     def open_register_sales(self):
-        # Function to open the sales registration screen
-        messagebox.showinfo("Info", "This will be the sales registration screen")
+        """Open the Sales screen."""
+        sales_window = tk.Toplevel(self.root)
+        SalesScreen(sales_window)  # Load the Sales screen inside the new window
 
     def open_produtos(self):
         """Open the Produtos screen."""
         produtos_window = tk.Toplevel(self.root)
         ProdutosScreen(produtos_window)  # Load th
+
+    def open_sales_hist(self):
+        """Open the Produtos screen."""
+        sales_hist_window = tk.Toplevel(self.root)
+        SalesViewScreen(sales_hist_window)  # Load th
 
     def exit(self):
         self.root.quit()
