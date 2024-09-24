@@ -1,24 +1,25 @@
-# Use an official Python runtime as a parent image
-FROM python:3.9-slim
+FROM python:3.10
 
-# Set the working directory in the container
+# Install Xvfb and other dependencies
+RUN apt-get update && apt-get install -y \
+    xvfb \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set the working directory
 WORKDIR /app
 
-# Copy the requirements file into the container (if you have one)
-COPY requirements.txt /app/requirements.txt
+# Copy requirements file
+COPY requirements.txt .
 
-# Install any dependencies
-RUN pip install --no-cache-dir -r /app/requirements.txt
+# Upgrade pip
+RUN pip install --upgrade pip
 
-RUN apt-get update && apt-get install -y \
-python3-tk \
-tk-dev
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application code to the container
-COPY . /app
+# Copy the rest of your application code
+COPY . .
 
-# Expose the port the application runs on (adjust this to your port, if needed)
-EXPOSE 5000
-
-# Run the application (replace `main.py` with the actual entry point of your app)
-CMD ["python", "main.py"]
+# Command to run your application with Xvfb
+CMD ["sh", "-c", "Xvfb :99 -screen 0 1024x768x24 & DISPLAY=:99 python main.py"]
