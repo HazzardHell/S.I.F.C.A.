@@ -12,7 +12,7 @@ class BoasVindas:
         self.root.geometry("800x600")  # Set the initial window size
 
         # Load the image using Pillow
-        self.original_image = Image.open("img\Empório.png")  # Replace with your image path
+        self.original_image = Image.open("img/Empório.png")  # Replace with your image path
 
         # Resize the image to fit the window
         self.bg_image = ImageTk.PhotoImage(self.original_image.resize((800, 600)))

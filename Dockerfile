@@ -21,5 +21,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of your application code
 COPY . .
 
+COPY img /app/img
+
 # Command to run your application with Xvfb
 CMD ["sh", "-c", "Xvfb :99 -screen 0 1024x768x24 & DISPLAY=:99 python main.py"]
